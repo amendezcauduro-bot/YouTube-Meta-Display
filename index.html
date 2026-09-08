@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>YouTube Meta Display</title>
+<style>
+:root{--bg:#050505;--panel:#111;--fg:#fff;--muted:#aaa;--accent:#ff2d2d}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh;display:grid;place-items:center}
+.app{width:min(94vw,600px);min-height:600px;padding:26px;display:flex;flex-direction:column;gap:18px;background:linear-gradient(180deg,#0a0a0a,#050505)}
+.top{display:flex;align-items:center;justify-content:space-between}.brand{font-size:18px;font-weight:800;letter-spacing:.08em}.badge{font-size:12px;color:#ff6b6b}
+.hero{padding:20px;border:1px solid #222;border-radius:22px;background:#0d0d0d}.hero h1{font-size:34px;margin:0 0 8px}.hero p{margin:0;color:var(--muted);line-height:1.4}
+.search{display:flex;gap:10px}.search input{flex:1;background:#111;border:1px solid #2b2b2b;color:#fff;border-radius:16px;padding:15px;font-size:18px;outline:none}.search button{border:0;border-radius:16px;padding:0 18px;background:var(--accent);color:#fff;font-weight:800;font-size:16px}
+.card{border:1px solid #222;border-radius:18px;padding:16px;background:var(--panel)}.card strong{display:block;margin-bottom:6px}.card small{color:var(--muted)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions button{padding:14px;border-radius:15px;border:1px solid #2a2a2a;background:#111;color:#fff;font-weight:700}
+.note{font-size:12px;line-height:1.4;color:#888;margin-top:auto}
+</style>
+</head>
+<body>
+<main class="app">
+  <div class="top"><div class="brand">YOUTUBE HUD</div><div class="badge">META DISPLAY · V1</div></div>
+  <section class="hero">
+    <h1>Busca YouTube</h1>
+    <p>Versión inicial privada y simple: no inicia sesión, no guarda historial y no usa trackers.</p>
+  </section>
+  <form class="search" id="searchForm">
+    <input id="query" type="search" placeholder="Ej. boxing footwork" autocomplete="off" />
+    <button type="submit">Buscar</button>
+  </form>
+  <section class="card">
+    <strong>¿Cómo funciona esta V1?</strong>
+    <small>La búsqueda abre los resultados oficiales de YouTube. Después podemos integrar resultados dentro del HUD usando la API oficial de YouTube.</small>
+  </section>
+  <div class="actions">
+    <button id="openHome">Abrir YouTube</button>
+    <button id="clear">Limpiar</button>
+  </div>
+  <div class="note">No afiliado a YouTube, Google, Meta o Ray-Ban. Esta V1 no solicita acceso a tu cuenta de Google ni a datos personales.</div>
+</main>
+<script>
+const form=document.getElementById('searchForm');
+const q=document.getElementById('query');
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  const term=q.value.trim();
+  if(!term) return;
+  const url='https://www.youtube.com/results?search_query='+encodeURIComponent(term);
+  window.location.href=url;
+});
+document.getElementById('openHome').onclick=()=>window.location.href='https://www.youtube.com/';
+document.getElementById('clear').onclick=()=>{q.value='';q.focus();};
+</script>
+</body>
+</html>
